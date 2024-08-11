@@ -7,8 +7,8 @@ module Helpers
 
       attr_accessor :vat
 
-      def calculate(args={})
-        args[:amount] * (1 + vat / 100.0)
+      def calculate(amount:)
+        amount * (1 + vat / 100.0)
       end
     end
   end

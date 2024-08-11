@@ -1,3 +1,3 @@
 class Calculator
-  def calculate(args={}); end
+  def calculate; end
 end

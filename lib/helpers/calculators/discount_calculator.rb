@@ -1,8 +1,8 @@
 module Helpers
   module Calculators
     class DiscountCalculator < Calculator
-      def calculate(args={})
-        args[:amount] * (1 - args[:discount_rate])
+      def calculate(amount:, discount_rate:)
+        amount * (1 - discount_rate)
       end
     end
   end
