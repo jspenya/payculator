@@ -3,30 +3,20 @@ require "./lib/models/calculator"
 module Helpers
   module Calculators
     class PaymentCalculator < Calculator
-      def initialize(options_cost_calculator: OptionsCostCalculator, vat_calculator: VATCalculator)
-        @options_cost_calculator = options_cost_calculator.new
-        @vat_calculator = vat_calculator.new
+      def initialize(calculator_run_sequence: Calculator::SEQUENCE)
+        @calculator_run_sequence = calculator_run_sequence
       end
 
-      attr_accessor :options_cost_calculator, :vat_calculator
+      attr_accessor :calculator_run_sequence
 
-      def calculate(course:, content_options_ids:, terms:)
-        base_cost = parse_cents(course.base_cost)
-        options_cost = options_cost_calculator.calculate(course: course, content_options_ids: content_options_ids)
-        discounted_cost = apply_discount(course:, terms:, amount: base_cost + options_cost)
+      def calculate(args: {})
+        # The calculators' return value should be a hash
+        # And contains the key :amount
+        result = calculator_run_sequence.inject(args) do |hash, klass|
+          Object.const_get("Helpers::Calculators::#{klass}").new.calculate(args: hash)
+        end
 
-        total_cost = vat_calculator.calculate(amount: discounted_cost)
-        per_term_cost = total_cost / terms
-
-        Money.from_cents(per_term_cost).format
-      end
-
-      private
-
-      def apply_discount(course:, amount:, terms:)
-        discount_rate = course.find_payment_term(terms).discounted_value.to_f
-
-        DiscountCalculator.new.calculate(amount:, discount_rate:)
+        Money.from_cents(result[:amount]).format
       end
     end
   end

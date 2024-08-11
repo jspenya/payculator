@@ -1,10 +1,10 @@
 module Helpers
   module Payments
     class Validator
-      def initialize(course:, content_options_ids:, terms:)
-        @course = course
-        @content_options_ids = content_options_ids
-        @terms = terms
+      def initialize(args: {})
+        @course = args[:course]
+        @content_options_ids = args[:content_options_ids]
+        @terms = args[:terms]
         @errors = []
       end
 

@@ -1,4 +1,11 @@
 class Calculator
+  SEQUENCE = [
+    'OptionsCostCalculator',
+    'DiscountCalculator',
+    'VATCalculator',
+    'TotalCostCalculator',
+  ]
+
   def calculate; end
 
   def parse_cents(amount)

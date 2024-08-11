@@ -1,7 +1,7 @@
 class Course
   def initialize(course_data)
     @id = course_data['id']
-    @base_cost = course_data['base_cost']
+    @base_cost = Moola.parse_currency(course_data['base_cost']).cents
     @content_options = course_data['content_options'].map { |co| ContentOption.new(co) }
     @payment_terms = course_data['payment_terms'].map { |pt| PaymentTerm.new(pt) }
   end

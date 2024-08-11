@@ -1,8 +1,11 @@
 # Gems
 require 'money'
 
+require 'byebug'
+
 # Config
 require './config/money'
+require './config/tax'
 
 # Helpers
 require_relative 'helpers/data_loader'
@@ -17,6 +20,7 @@ require_relative 'helpers/calculators/payment_calculator'
 require_relative 'helpers/calculators/options_cost_calculator'
 require_relative 'helpers/calculators/v_a_t_calculator'
 require_relative 'helpers/calculators/discount_calculator'
+require_relative 'helpers/calculators/total_cost_calculator'
 
 # Models
 require_relative 'models/course'
