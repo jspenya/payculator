@@ -11,14 +11,14 @@ module Helpers
       attr_accessor :options_cost_calculator, :vat_calculator
 
       def calculate(course:, content_options_ids:, terms:)
-        base_cost = Money.parse_currency(course.base_cost)
+        base_cost = parse_cents(course.base_cost)
         options_cost = options_cost_calculator.calculate(course: course, content_options_ids: content_options_ids)
         discounted_cost = apply_discount(course:, terms:, amount: base_cost + options_cost)
 
         total_cost = vat_calculator.calculate(amount: discounted_cost)
         per_term_cost = total_cost / terms
 
-        Money.format(per_term_cost)
+        Money.from_cents(per_term_cost).format
       end
 
       private

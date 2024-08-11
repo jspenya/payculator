@@ -1,10 +1,16 @@
+# Gems
+require 'money'
+
+# Config
+require './config/money'
+
 # Helpers
 require_relative 'helpers/data_loader'
 require_relative 'helpers/finder'
 
 # Helpers for payments
 require_relative 'helpers/payments/validator'
-require_relative 'helpers/payments/money'
+require_relative 'helpers/payments/moola'
 
 # Calculators
 require_relative 'helpers/calculators/payment_calculator'
